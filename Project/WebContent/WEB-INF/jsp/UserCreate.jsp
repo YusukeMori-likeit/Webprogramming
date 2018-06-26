@@ -33,16 +33,28 @@ p.right { text-align: right; }
 <div class="container">
 <span class="fs13"><p class="center">ユーザ新規登録</p></span>
 
+	<c:if test="${errMsg != null}" >
+	    <div class="alert alert-danger" role="alert">
+		  ${errMsg}
+		</div>
+	</c:if>
+
+		<c:if test="${errMsg1 != null}" >
+	    <div class="alert alert-danger" role="alert">
+		  ${errMsg1}
+		</div>
+	</c:if>
+
 <form action="UserCreateServlet" method="post">
-ログインID　　　　　　　　　<input type="text" name="loginId"><br>
+ログインID　　　　　　　　　<input type="text" name="loginId" value="${user.loginId }"><br>
 <br>
 パスワード　　　　　　　　　<input type="text" name="password"><br>
 <br>
 パスワード（確認）　　　　　<input type="text" name="passwordA"><br>
 <br>
-ユーザ名　　　　　　　　　　<input type="text" name="name"><br>
+ユーザ名　　　　　　　　　　<input type="text" name="name" value="${user.name }"><br>
 <br>
-生年月日　　　　　　　　　　<input type="text" name="birthdate"><br>
+生年月日　　　　　　　　　　<input type="date" name="birthdate" value="${user.birthDateStr }"><br>
 <br>
 <br>
 <p class="center"><input type="submit" value="登録"></p>

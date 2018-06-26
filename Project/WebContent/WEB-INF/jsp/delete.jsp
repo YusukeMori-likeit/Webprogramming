@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head><style type="text/css">
@@ -28,13 +31,13 @@ p.right { text-align: right; }
 </head>
 <body>
 <div class="container">
-<p class="right">ユーザ名　さん　　<a href="login_form.html"> ログアウト </a></p><br />
+<p class="right">${userInfo.name}　さん　　<a href="Logout"> ログアウト </a></p><br />
 <hr />
 <span class="fs13"><p class="center">ユーザ削除確認</p></span>
-ログインID：id0001
+ログインID：${userInfo2.loginId}
 <br>を本当に削除してよろしいでしょうか。
 <br><br>
-<button type="button" class="btn btn-primary">キャンセル</button>　　<button type="button" class="btn btn-secondary">削除</button>
+<a class="btn btn-danger" href ="UserListServlet?id=${userInfo2.id}">キャンセル</a>　　<a class="btn btn-danger" href ="DeleteServlet?id=${userInfo2.id}">OK</a>
 </div>
 </body>
 </html>

@@ -1,5 +1,6 @@
 package model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -33,6 +34,10 @@ public class User {
 		this.createDate = createDate;
 		this.updateDate = updateDate;
 	}
+
+	public User() {
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -54,6 +59,21 @@ public class User {
 	public Date getBirthDate() {
 		return birthDate;
 	}
+
+	public String getBirthDateStr() {
+		String  str= null;
+		str  = new SimpleDateFormat("yyyy-MM-dd").format(this.birthDate);
+		return str;
+	}
+
+	public String getBirthDateFormat() {
+		String str = null;
+		str  = new SimpleDateFormat("yyyy年MM月dd日").format(this.birthDate);
+		return str;
+	}
+
+
+
 	public void setBirthDate(Date birthDate) {
 		this.birthDate = birthDate;
 	}

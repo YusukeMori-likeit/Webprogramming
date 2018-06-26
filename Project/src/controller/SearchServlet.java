@@ -1,6 +1,8 @@
 package controller;
 
+
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,25 +16,25 @@ import dao.UserDao;
 import model.User;
 
 /**
- * Servlet implementation class LoginServlet
+ * Servlet implementation class SerchServlet
  */
-@WebServlet("/LoginServlet")
-public class LoginServlet extends HttpServlet {
+@WebServlet("/SearchServlet")
+public class SearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public LoginServlet() {
-		super();
-	}
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public SearchServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 
 		// ログインセッションがある場合、ユーザ一覧画面にリダイレクトさせる
 		HttpSession session = request.getSession();
@@ -47,30 +49,31 @@ public class LoginServlet extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 
+
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // リクエストパラメータの文字コードを指定
         request.setCharacterEncoding("UTF-8");
 
 		// リクエストパラメータの入力項目を取得
-		String loginId = request.getParameter("loginId");
+		String loginId = request.getParameter("login_id");
 		String password = request.getParameter("password");
+		String birth_Date = request.getParameter("birth_day");
+		String birth_Date1 = request.getParameter("birth_day1");
 
 		// リクエストパラメータの入力項目を引数に渡して、Daoのメソッドを実行
 		UserDao userDao = new UserDao();
-		User user = userDao.findByLoginInfo(loginId, password);
+		List<User> user = userDao.findSearch(loginId, password,birth_Date,birth_Date1);
 
 		/** テーブルに該当のデータが見つからなかった場合 **/
 		if (user == null) {
 			// リクエストスコープにエラーメッセージをセット
-			request.setAttribute("errMsg", "ログインID、またはパスワードが異なります。");
+			request.setAttribute("errMsg4", "対象は見つかりませんでした。");
 
 			// ログインjspにフォワード
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login_form.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/userList.jsp");
 			dispatcher.forward(request, response);
 			return;
 		}
@@ -78,12 +81,11 @@ public class LoginServlet extends HttpServlet {
 		/** テーブルに該当のデータが見つかった場合 **/
 		// セッションにユーザの情報をセット
 		HttpSession session = request.getSession();
-		session.setAttribute("userInfo", user);
+		session.setAttribute("userList", user);
 
-		// ユーザ一覧のサーブレットにリダイレクト
-		response.sendRedirect("UserListServlet");
-
+		// ユーザリストjspにフォワード
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/userList.jsp");
+		dispatcher.forward(request, response);
 	}
 
 }
-

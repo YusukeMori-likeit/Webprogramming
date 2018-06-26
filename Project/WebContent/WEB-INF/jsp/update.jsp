@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head><style type="text/css">
@@ -29,20 +32,31 @@ p.right { text-align: right; }
 <body>
 
 <div class="container">
-<p class="right">ユーザ名　さん　　<a href="login_form.html"> ログアウト </a></p><br />
+<p class="right">${userInfo.name}　さん　　<a href="Logout"> ログアウト </a></p><br />
 <hr />
-
+	<c:if test="${errMsg2 != null}" >
+	    <div class="alert alert-danger" role="alert">
+		  ${errMsg2}
+		</div>
+	</c:if>
+		<c:if test="${errMsg3 != null}" >
+	    <div class="alert alert-danger" role="alert">
+		  ${errMsg3}
+		</div>
+	</c:if>
 <span class="fs13"><p class="center">ユーザ情報更新</p></span>
-<form action="/WebApplicationQ/FormNewUserServlet" method="post">
-ログインID　　　　　　　　　id0001<br>
+<form action="UpdateServlet" method="post">
+<input type="hidden" name="id" value="${userInfo2.id}"/>
+<input type="hidden" name="loginId" value="${userInfo2.loginId}"/>
+ログインID　　　　　　　　　${userInfo2.loginId}<br>
 <br>
 パスワード　　　　　　　　　<input type="text" name="password"><br>
 <br>
 パスワード（確認）　　　　　<input type="text" name="passwordA"><br>
 <br>
-ユーザ名　　　　　　　　　　<input type="text" name="user_name"><br>
+ユーザ名　　　　　　　　　　<input type="text" name="name" value="${userInfo2.name}"><br>
 <br>
-生年月日　　　　　　　　　　<input type="text" name="birth_day"><br>
+生年月日　　　　　　　　　　<input type="date" name="birthDate" value="${userInfo2.birthDateStr}"><br>
 <br>
 <br>
 <p class="center"><input type="submit" value="更新"></p>

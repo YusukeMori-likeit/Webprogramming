@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,18 +32,20 @@ p.right { text-align: right; }
 </head>
 <body>
 <div class="container">
+<p class="right">${userInfo.name}　さん　　<a href="Logout"> ログアウト </a></p><br />
+<hr />
 <span class="fs13"><p class="center">ユーザ情報詳細参照</p></span>
 <br>
 <br>
-<span class="fs12">ログインID　　　　　　id0001</span>
+<span class="fs12">ログインID　　　　　　${userInfo1.loginId}</span>
 <br>
-<span class="fs12">ユーザ名　　　　　　　田中太郎</span>
+<span class="fs12">ユーザ名　　　　　　　${userInfo1.name}</span>
 <br>
-<span class="fs12">生年月日　　　　　　　1989年04月26日</span>
+<span class="fs12">生年月日　　　　　　　${userInfo1.birthDateFormat}</span>
 <br>
-<span class="fs12">登録日時　　　　　　　2017年01月01日 10:50</span>
+<span class="fs12">登録日時　　　　　　　${userInfo1.createDate}</span>
 <br>
-<span class="fs12">更新日時　　　　　　　2017年02月01日 01:05</span>
+<span class="fs12">更新日時　　　　　　　${userInfo1.updateDate}</span>
 <br>
 <p class="left"><a href="javascript:history.back()">[戻る]</a></p>
 </div>
